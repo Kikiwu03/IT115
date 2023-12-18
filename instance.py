@@ -44,7 +44,7 @@ async def on_message(message):
             await message.channel.send(f"hello {username} Your EC2 Data: {ec2_metadata.region}")
             
         
-        elif user_message.lower() == "tell me about my server":
+        elif user_message.lower() == "tell me about my server!":
             await message.channel.send(f"Here is your IP Address: {ec2_metadata.public_ipv4}, Your EC2 Region: {ec2_metadata.region}, and Avaliability zone: {ec2_metadata.availability_zone}")
             return
         
