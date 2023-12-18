@@ -1,4 +1,4 @@
-
+# Imports class libraries needed to interact with discord,randomly generates something, importing token
 import discord
 import os
 import random
