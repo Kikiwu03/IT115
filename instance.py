@@ -2,7 +2,9 @@
 import discord
 import os
 import random
-from ec2_metadata import ec2_metadata 
+from ec2_metadata import ec2_metadata
+
+from dotenv import load_dotenv
 
 print(ec2_metadata.region)
 print(ec2_metadata.instance_id)
@@ -28,34 +30,26 @@ async def on_message(message):
     
     print(f'Message {user_message} by {username} on {channel}')
 
-    discord_channels = ["random", "general", "chat"]
-
     
     if message.author == client.user:
         return 
     
     
-    if channel == discord_channels:
-        try: 
-
-            if user_message.lower() == "hello" or user_message.lower() == "hi?":
-                await message.channel.send(f"Hi There! {username} Your EC2 Data: {ec2_metadata.region}")
-                return 
+    if channel == "random": 
+        if user_message.lower() == "hello" or user_message.lower() == "hi":
+            await message.channel.send(f"Hi There! {username} Your EC2 Data: {ec2_metadata.region}")
+            return 
+        
+        elif user_message.lower() == "hello world":
+            await message.channel.send(f"hello {username} Your EC2 Data: {ec2_metadata.region}")
             
-            elif user_message.lower() == "hello world":
-                await message.channel.send("hello user")
-                
-            
-            elif user_message.lower() == "tell me about my server":
-                await message.channel.send(f"Here is your IP Address: {ec2_metadata.public_ipv4}, Your EC2 Region: {ec2_metadata.region}, and Avaliability zone: {ec2_metadata.availability}")
-                return
-            
-            elif user_message.lower() == "bye":
-                await message.channel.send(f"Bye {username} Your EC2 Data: {ec2_metadata.region}")
-
-        except Exception as e:
-            print(f"Error:" {e}")
-            await message.channel.send("Unable to respond due to an error")
+        
+        elif user_message.lower() == "tell me about my server":
+            await message.channel.send(f"Here is your IP Address: {ec2_metadata.public_ipv4}, Your EC2 Region: {ec2_metadata.region}, and Avaliability zone: {ec2_metadata.availability_zone}")
+            return
+        
+        elif user_message.lower() == "bye":
+            await message.channel.send(f"Bye {username} Your EC2 Data: {ec2_metadata.region}")
 
 
 client.run(token)
